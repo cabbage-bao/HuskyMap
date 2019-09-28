@@ -98,8 +98,18 @@ public class LinkedIntList {
 
     /** Moves the first integer to the back of the list. */
     public static void firstToLast(LinkedIntList L) {
-        // TODO: your code here
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        if (L != null && L.front != null && L.front.next != null) {
+            ListNode start = L.front;
+            L.front = L.front.next;
+            ListNode curr = start;
+            while (curr.next != null) {
+                curr = curr.next;
+            }
+            curr.next = start;
+            start.next = null;
+        }
+        //throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     /**
@@ -107,8 +117,17 @@ public class LinkedIntList {
      * use 'new'.
      */
     public static void extend(LinkedIntList A, LinkedIntList B) {
-        // TODO: your code here
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        if (A.front == null || A == null) {
+            A.front = B.front;
+        } else {
+            ListNode node = A.front;
+            while (node.next != null) {
+                node = node.next;
+            }
+            node.next = B.front;
+        }
+        //throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     /**
@@ -116,8 +135,29 @@ public class LinkedIntList {
      * of B. May NOT modify items of A or B. Use 'new'.
      */
     public static LinkedIntList concatenated(LinkedIntList A, LinkedIntList B) {
-        // TODO: your code here
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        if (A == null) {
+            return null;
+        } else if (A.front == null) {
+            return new LinkedIntList(B.front);
+        } else if (A == null && B == null) {
+            return null;
+        } else if (B.front == null) {
+            return new LinkedIntList(A.front);
+        }
+        ListNode a = A.front;
+        ListNode front = new ListNode(a.data);
+        ListNode cur = front;
+
+        while (a.next != null) {
+            a = a.next;
+            cur.next = new ListNode(a.data);
+            cur = cur.next;
+        }
+
+        cur.next = B.front;
+        return new LinkedIntList(front);
+        //throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     // You don't need to look at or understand the methods below this comment.
