@@ -76,7 +76,6 @@ public class ArrayDeque<T> implements Deque<T> {
         }
         return result;
     }
-
     public T get(int index) {
         if (index >= size) {
             return null;
@@ -85,7 +84,6 @@ public class ArrayDeque<T> implements Deque<T> {
             return data[place % data.length];
         }
     }
-
     public String toString() {
         // We use a StringBuilder since it concatenates strings more efficiently
         // than using += in a loop
@@ -101,18 +99,16 @@ public class ArrayDeque<T> implements Deque<T> {
         }
         return output.toString();
     }
-
     public int size() {
         return size;
     }
-
     @SuppressWarnings("unchecked")
     private void resize(int capacity) {
         T[] newData = (T[]) new Object[capacity];
-        int i = increment(front, size);
+        int i = increment(front, data.length);
         for (int newIndex = 0; newIndex < size; newIndex += 1) {
             newData[newIndex] = data[i];
-            i = increment(i, size);
+            i = increment(i, data.length);
         }
         front = newData.length - 1;
         back = size;
