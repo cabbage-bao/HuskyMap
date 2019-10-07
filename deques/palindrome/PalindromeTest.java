@@ -32,6 +32,7 @@ public class PalindromeTest {
         assertEquals(palindrome.isPalindrome("ASffa"), false);
         assertEquals(palindrome.isPalindrome("aabbaa"), true);
         assertEquals(palindrome.isPalindrome("AABBAA"), true);
+        assertEquals(palindrome.isPalindrome("Aa"), true);
     }
 
     @Test
