@@ -28,11 +28,12 @@ public class PalindromeTest {
         assertEquals(palindrome.isPalindrome("a"), true);
         assertEquals(palindrome.isPalindrome(""), true);
         assertTrue(palindrome.isPalindrome("aca"));
+        assertTrue(palindrome.isPalindrome("abba"));
         assertEquals(palindrome.isPalindrome("asffa"), false);
         assertEquals(palindrome.isPalindrome("ASffa"), false);
         assertEquals(palindrome.isPalindrome("aabbaa"), true);
         assertEquals(palindrome.isPalindrome("AABBAA"), true);
-        assertEquals(palindrome.isPalindrome("Aa"), true);
+        assertEquals(palindrome.isPalindrome("Aa"), false);
     }
 
     @Test
