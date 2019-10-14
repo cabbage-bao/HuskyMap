@@ -4,6 +4,8 @@ import edu.princeton.cs.algs4.In;
 import org.junit.Before;
 import org.junit.Test;
 
+//import java.util.Random;
+
 import static org.junit.Assert.assertEquals;
 
 public class BinaryRangeSearchTest {
@@ -38,6 +40,15 @@ public class BinaryRangeSearchTest {
 
         linearAuto = new LinearRangeSearch(terms);
         binaryAuto = new BinaryRangeSearch(terms);
+
+        //Random r = new Random();
+        //int randNum = r.nextInt(terms.length);
+
+        //Random rlen = new Random();
+        //int randlen = rlen.nextInt(10) + 1;
+
+        //String preFix = terms[randNum].query().substring(0, randlen);
+        //assertTermsEqual(linearAuto.allMatches(preFix), binaryAuto.allMatches(preFix));
     }
 
     /**
@@ -69,4 +80,22 @@ public class BinaryRangeSearchTest {
     }
 
     // Write more unit tests below.
+    @Test
+    public void testExample() {
+        Term[] moreTerms = new Term[]{
+                new Term("hello", 0),
+                new Term("world", 0),
+                new Term("welcome", 0),
+                new Term("to", 0),
+                new Term("autocomplete", 1),
+                new Term("me", 0),
+                new Term("autoasd", 0)
+        };
+        BinaryRangeSearch brs = new BinaryRangeSearch(moreTerms);
+        Term[] expected = new Term[]{
+                new Term("autocomplete", 1),
+                new Term("autoasd", 0)
+        };
+        assertTermsEqual(expected, brs.allMatches("auto"));
+    }
 }

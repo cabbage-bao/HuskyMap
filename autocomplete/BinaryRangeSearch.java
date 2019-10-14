@@ -1,7 +1,10 @@
 package autocomplete;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinaryRangeSearch implements Autocomplete {
-    // TODO: add fields as necessary
+    private Term[] myTerm;
 
     /**
      * Validates and stores the given array of terms.
@@ -10,8 +13,8 @@ public class BinaryRangeSearch implements Autocomplete {
      * @throws IllegalArgumentException if terms is null or contains null
      */
     public BinaryRangeSearch(Term[] terms) {
-        // TODO: replace this with your code
-        throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
+        this.myTerm = terms;
+        //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
 
     /**
@@ -19,7 +22,45 @@ public class BinaryRangeSearch implements Autocomplete {
      * @throws IllegalArgumentException if prefix is null
      */
     public Term[] allMatches(String prefix) {
-        // TODO: replace this with your code
-        throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
+        int len = prefix.length();
+        List<Term> list = new ArrayList<>();
+        for (Term temp : this.myTerm) {
+            list.add(temp);
+        }
+        list.sort(TermComparators.byPrefixOrder(len));        //sort the original array<term>
+
+
+        int start = 0;
+        int end = myTerm.length - 1;
+        while (start < end) {
+            int mid = (start + end) / 2;
+            if (list.get(mid).queryPrefix(len).compareTo(prefix) >= 0) {
+                end = mid;
+            } else {
+                start = mid + 1;
+            }
+        }
+        int first = start;            //return the first position of term with prefix
+
+        start = 0;
+        end = myTerm.length - 1;
+        while (start < end) {
+            int mid = (start + end) / 2 + 1;
+            if (list.get(mid).queryPrefix(len).compareTo(prefix) <= 0) {
+                start = mid;
+            } else {
+                end = mid - 1;
+            }
+        }
+        int last = start;            //return the last position of term with prefix
+
+        List<Term> sub = new ArrayList<>();
+        for (int i = first; i <= last; i++) {
+            sub.add(list.get(i));
+        }
+        sub.sort(TermComparators.byReverseWeightOrder());   //sort the subList in descending order of weight
+        Term[] ans = sub.toArray(new Term[sub.size()]);
+        return ans;
+        //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
 }
