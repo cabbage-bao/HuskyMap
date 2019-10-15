@@ -12,5 +12,10 @@ public class TermTest {
         assertTrue(a.compareTo(b) < 0); // "autocomplete" < "me"
     }
 
+    @Test
+    public void testReverseOrder() {
+
+    }
+
     // Write more unit tests below.
 }
