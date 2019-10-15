@@ -6,6 +6,7 @@ public class Term implements Comparable<Term> {
 
     private String str;
     private long weight;
+
     /**
      * Initializes a term with the given query string and weight.
      * @throws IllegalArgumentException if query is null or weight is negative
@@ -16,7 +17,6 @@ public class Term implements Comparable<Term> {
         }
         this.str = query;
         this.weight = weight;
-        //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
 
     /**
@@ -24,20 +24,22 @@ public class Term implements Comparable<Term> {
      * @throws NullPointerException if the specified object is null
      */
     public int compareTo(Term that) {
-        if (that == null) {
+        if (that == null || this == null) {
             throw new NullPointerException();
         }
         return this.str.compareTo(that.str);
-        //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
 
     /** Compares to another term, in descending order by weight. */
     public int compareToByReverseWeightOrder(Term that) {
-        if (this.weight == that.weight) {
-            return this.str.compareTo(that.str);
+        if (that == null || this == null) {
+            throw new NullPointerException();
         }
+        //if (this.weight == that.weight) {
+        //    return this.str.compareTo(that.str);
+        //}
         return this.weight > that.weight ? -1 : 1;
-        //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
+
     }
 
     /**
@@ -47,7 +49,7 @@ public class Term implements Comparable<Term> {
      * @throws IllegalArgumentException if r < 0
      */
     public int compareToByPrefixOrder(Term that, int r) {
-        if (r < 0) {
+        if (r < 0 || that == null) {
             throw new IllegalArgumentException();
         }
 
@@ -55,13 +57,10 @@ public class Term implements Comparable<Term> {
             return this.compareTo(that);
         }
         return this.str.substring(0, r).compareTo(that.str.substring(0, r));
-
-        //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
     /** Returns this term's query. */
     public String query() {
         return this.str;
-        //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
 
     /**
@@ -77,13 +76,11 @@ public class Term implements Comparable<Term> {
             return this.str;
         }
         return this.str.substring(0, r);
-        //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
 
     /** Returns this term's weight. */
     public long weight() {
         return this.weight;
-        //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
 
     @Override

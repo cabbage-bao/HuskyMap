@@ -1,6 +1,7 @@
 package autocomplete;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LinearRangeSearch implements Autocomplete {
@@ -13,7 +14,7 @@ public class LinearRangeSearch implements Autocomplete {
      * @throws IllegalArgumentException if terms is null or contains null
      */
     public LinearRangeSearch(Term[] terms) {
-        if (terms == null || terms.length == 0) {
+        if (terms == null || Arrays.asList(terms).contains(null)) {
             throw new IllegalArgumentException();
         }
         this.myTerm = terms;
@@ -28,6 +29,7 @@ public class LinearRangeSearch implements Autocomplete {
         if (prefix == null) {
             throw new IllegalArgumentException();
         }
+
         List<Term> res = new ArrayList<>();
         for (Term temp : this.myTerm) {
             if (temp.queryPrefix(prefix.length()).equals(prefix)) {
@@ -37,7 +39,6 @@ public class LinearRangeSearch implements Autocomplete {
         res.sort(TermComparators.byReverseWeightOrder());
         Term[] ans = res.toArray(new Term[res.size()]);
         return ans;
-        //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
 }
 

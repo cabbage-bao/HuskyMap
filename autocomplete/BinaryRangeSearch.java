@@ -1,8 +1,8 @@
 package autocomplete;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+//import java.util.List;
 
 public class BinaryRangeSearch implements Autocomplete {
     private Term[] myTerm;
@@ -14,13 +14,12 @@ public class BinaryRangeSearch implements Autocomplete {
      * @throws IllegalArgumentException if terms is null or contains null
      */
     public BinaryRangeSearch(Term[] terms) {
-        if (terms == null || terms.length == 0) {
+        if (terms == null || Arrays.asList(terms).contains(null)) {
             throw new IllegalArgumentException();
         }
 
         Arrays.sort(terms);
         this.myTerm = terms;
-        //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
 
     /**
@@ -33,16 +32,12 @@ public class BinaryRangeSearch implements Autocomplete {
         }
 
         int len = prefix.length();
-        List<Term> list = new ArrayList<>();
-        for (Term temp : this.myTerm) {
-            list.add(temp);
-        }
 
         int start = 0;
         int end = myTerm.length - 1;
         while (start < end) {
             int mid = (start + end) / 2;
-            if (list.get(mid).queryPrefix(len).compareTo(prefix) >= 0) {
+            if (myTerm[mid].queryPrefix(len).compareTo(prefix) >= 0) {
                 end = mid;
             } else {
                 start = mid + 1;
@@ -54,7 +49,7 @@ public class BinaryRangeSearch implements Autocomplete {
         end = myTerm.length - 1;
         while (start < end) {
             int mid = (start + end) / 2 + 1;
-            if (list.get(mid).queryPrefix(len).compareTo(prefix) <= 0) {
+            if (myTerm[mid].queryPrefix(len).compareTo(prefix) <= 0) {
                 start = mid;
             } else {
                 end = mid - 1;
@@ -62,13 +57,12 @@ public class BinaryRangeSearch implements Autocomplete {
         }
         int last = start;            //return the last position of term with prefix
 
-        List<Term> sub = new ArrayList<>();
+        Term[] ans = new Term[last - first + 1];
         for (int i = first; i <= last; i++) {
-            sub.add(list.get(i));
+            ans[i - first] = myTerm[i];
         }
-        sub.sort(TermComparators.byReverseWeightOrder());   //sort the subList in descending order of weight
-        Term[] ans = sub.toArray(new Term[sub.size()]);
+        Arrays.sort(ans, TermComparators.byReverseWeightOrder());
+
         return ans;
-        //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
 }

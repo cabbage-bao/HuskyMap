@@ -91,6 +91,7 @@ public class BinaryRangeSearchTest {
                 new Term("welcome", 2),
                 new Term("world", 0),
         };
+        assertTermsEqual(expected, brs.allMatches("auto"));
         assertTermsEqual(expected1, brs.allMatches("w"));
     }
 
