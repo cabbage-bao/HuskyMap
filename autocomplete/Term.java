@@ -35,7 +35,10 @@ public class Term implements Comparable<Term> {
         if (that == null || this == null) {
             throw new NullPointerException();
         }
-        return (int) (that.weight - this.weight);
+        if (this.weight == that.weight) {
+            return 0;
+        }
+        return this.weight > that.weight ? -1 : 1;
     }
 
     /**
