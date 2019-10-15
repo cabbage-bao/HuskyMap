@@ -1,6 +1,7 @@
 package autocomplete;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BinaryRangeSearch implements Autocomplete {
@@ -13,6 +14,11 @@ public class BinaryRangeSearch implements Autocomplete {
      * @throws IllegalArgumentException if terms is null or contains null
      */
     public BinaryRangeSearch(Term[] terms) {
+        if (terms == null || terms.length == 0) {
+            throw new IllegalArgumentException();
+        }
+
+        Arrays.sort(terms);
         this.myTerm = terms;
         //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
@@ -22,13 +28,15 @@ public class BinaryRangeSearch implements Autocomplete {
      * @throws IllegalArgumentException if prefix is null
      */
     public Term[] allMatches(String prefix) {
+        if (prefix == null) {
+            throw new IllegalArgumentException();
+        }
+
         int len = prefix.length();
         List<Term> list = new ArrayList<>();
         for (Term temp : this.myTerm) {
             list.add(temp);
         }
-        list.sort(TermComparators.byPrefixOrder(len));        //sort the original array<term>
-
 
         int start = 0;
         int end = myTerm.length - 1;

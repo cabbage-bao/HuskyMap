@@ -11,6 +11,9 @@ public class Term implements Comparable<Term> {
      * @throws IllegalArgumentException if query is null or weight is negative
      */
     public Term(String query, long weight) {
+        if (query == null || weight < 0) {
+            throw new IllegalArgumentException();
+        }
         this.str = query;
         this.weight = weight;
         //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
@@ -21,6 +24,9 @@ public class Term implements Comparable<Term> {
      * @throws NullPointerException if the specified object is null
      */
     public int compareTo(Term that) {
+        if (that == null) {
+            throw new NullPointerException();
+        }
         return this.str.compareTo(that.str);
         //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
@@ -41,6 +47,10 @@ public class Term implements Comparable<Term> {
      * @throws IllegalArgumentException if r < 0
      */
     public int compareToByPrefixOrder(Term that, int r) {
+        if (r < 0) {
+            throw new IllegalArgumentException();
+        }
+
         if (r > this.str.length() || r > that.str.length()) {
             return this.compareTo(that);
         }
@@ -60,6 +70,9 @@ public class Term implements Comparable<Term> {
      * @throws IllegalArgumentException if r < 0
      */
     public String queryPrefix(int r) {
+        if (r < 0) {
+            throw new IllegalArgumentException();
+        }
         if (r >= this.str.length()) {
             return this.str;
         }

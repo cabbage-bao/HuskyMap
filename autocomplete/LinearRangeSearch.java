@@ -13,6 +13,9 @@ public class LinearRangeSearch implements Autocomplete {
      * @throws IllegalArgumentException if terms is null or contains null
      */
     public LinearRangeSearch(Term[] terms) {
+        if (terms == null || terms.length == 0) {
+            throw new IllegalArgumentException();
+        }
         this.myTerm = terms;
         //throw new UnsupportedOperationException("Not implemented yet: replace this with your code.");
     }
@@ -22,9 +25,12 @@ public class LinearRangeSearch implements Autocomplete {
      * @throws IllegalArgumentException if prefix is null
      */
     public Term[] allMatches(String prefix) {
+        if (prefix == null) {
+            throw new IllegalArgumentException();
+        }
         List<Term> res = new ArrayList<>();
         for (Term temp : this.myTerm) {
-            if (temp.queryPrefix(prefix.length()) == prefix) {
+            if (temp.queryPrefix(prefix.length()).equals(prefix)) {
                 res.add(temp);
             }
         }
