@@ -142,6 +142,8 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
             if (list.get(k).getPriority() > list.get(j).getPriority()) {
                 swap(k, j);
                 k = j;
+            } else {
+                break;
             }
         }
     }
