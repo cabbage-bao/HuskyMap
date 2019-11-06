@@ -7,7 +7,7 @@ public class KDTreePointSet implements PointSet {
 
     private double bestX;
     private double bestY;
-    private double minDistance = Integer.MAX_VALUE;
+    private double minDistance = Double.MAX_VALUE;
     /**
      * Instantiates a new KDTree with the given points.
      * @param points a non-null, non-empty list of points to include
@@ -49,24 +49,24 @@ public class KDTreePointSet implements PointSet {
         if (layer % 2 == 1) {
             if (x < root.point.x()) {
                 recursion(root.left, x, y, layer + 1);
-                if (Math.abs(root.point.x() - x) < minDistance) {
+                if (Math.pow((root.point.x() - x), 2) < minDistance) {
                     recursion(root.right, x, y, layer + 1);
                 }
             } else {
                 recursion(root.right, x, y, layer + 1);
-                if (Math.abs(root.point.x() - x) < minDistance) {
+                if (Math.pow((root.point.x() - x), 2) < minDistance) {
                     recursion(root.left, x, y, layer + 1);
                 }
             }
         } else if (layer % 2 == 0) {
             if (y < root.point.y()) {
                 recursion(root.left, x, y, layer + 1);
-                if (Math.abs(y - root.point.y()) < minDistance) {
+                if (Math.pow((root.point.y() - y), 2) < minDistance) {
                     recursion(root.right, x, y, layer + 1);
                 }
             } else {
                 recursion(root.right, x, y, layer + 1);
-                if (Math.abs(y - root.point.y()) < minDistance) {
+                if (Math.pow((root.point.y() - y), 2) < minDistance) {
                     recursion(root.left, x, y, layer + 1);
                 }
             }

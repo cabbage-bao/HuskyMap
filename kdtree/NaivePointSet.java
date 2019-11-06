@@ -22,7 +22,7 @@ public class NaivePointSet implements PointSet {
     @Override
     public Point nearest(double x, double y) {
         double min = Integer.MAX_VALUE;
-        double cur = 0;
+        double cur;
         double tempX = 0;
         double tempY = 0;
         for (int i = 0; i < set.size(); i++) {

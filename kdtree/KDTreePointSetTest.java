@@ -4,7 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class KDTreePointSetTest {
 
@@ -12,15 +14,21 @@ public class KDTreePointSetTest {
 
     @Test
     public void simpleTest() {
-        Point p1 = new Point(1.1, 2.2); // Point with x = 1.1, y = 2.2
-        Point p2 = new Point(3.3, 4.4);
-        Point p3 = new Point(-2.9, 4.2);
-        Point p4 = new Point(1.0, 2.0);
-        Point p5 = new Point(-4.0, -6.0);
-        PointSet nn = new KDTreePointSet(List.of(p1, p2, p3, p4, p5));
-        Point ret = nn.nearest(3.0, 4.0);
+        for (int j = 1; j < 50; j++) {
+            int seed = j;
+            Random random = new Random(seed);
+            List<Point> points = new ArrayList<>();
+            for (int i = 0; i < 1000000; i++) {
+                points.add(new Point(random.nextDouble(), random.nextDouble()));
+            }
+            KDTreePointSet test = new KDTreePointSet(points);
+            NaivePointSet naive = new NaivePointSet(points);
+            double x = random.nextDouble();
+            double y = random.nextDouble();
 
-        assertEquals(new Point(3.3, 4.4), ret);
+            assertEquals(test.nearest(x, y), naive.nearest(x, y));
+        }
+
     }
 }
 
