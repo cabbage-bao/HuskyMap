@@ -7,7 +7,7 @@ public class KDTreePointSet implements PointSet {
 
     private double bestX;
     private double bestY;
-    private double minDistance = Double.MAX_VALUE;
+    private double minDistance;
     /**
      * Instantiates a new KDTree with the given points.
      * @param points a non-null, non-empty list of points to include
@@ -30,6 +30,7 @@ public class KDTreePointSet implements PointSet {
      */
     @Override
     public Point nearest(double x, double y) {
+        minDistance = Double.MAX_VALUE;
         recursion(kdRoot, x, y, 1);
         return new Point(bestX, bestY);
     }

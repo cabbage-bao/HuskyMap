@@ -10,24 +10,25 @@ import java.util.Random;
 
 public class KDTreePointSetTest {
 
-    //private static KDTreePointSet kdSet;
-
     @Test
     public void simpleTest() {
-        for (int j = 1; j < 50; j++) {
-            int seed = j;
-            Random random = new Random(seed);
-            List<Point> points = new ArrayList<>();
-            for (int i = 0; i < 1000000; i++) {
-                points.add(new Point(random.nextDouble(), random.nextDouble()));
-            }
-            KDTreePointSet test = new KDTreePointSet(points);
-            NaivePointSet naive = new NaivePointSet(points);
+        Random random = new Random(65124);
+        List<Point> points = new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+            points.add(new Point(random.nextDouble(), random.nextDouble()));
+        }
+
+        KDTreePointSet kdtree = new KDTreePointSet(points);
+        NaivePointSet naive = new NaivePointSet(points);
+        for (int k = 0; k < 10000; k++) {
             double x = random.nextDouble();
             double y = random.nextDouble();
-
-            assertEquals(test.nearest(x, y), naive.nearest(x, y));
+            //System.out.println(x + " " + y);
+            Point a = naive.nearest(x, y);
+            Point b = kdtree.nearest(x, y);
+            assertEquals(a, b);
         }
+
 
     }
 }
