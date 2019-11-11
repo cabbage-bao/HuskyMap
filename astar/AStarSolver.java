@@ -5,8 +5,9 @@ package astar;
 import edu.princeton.cs.algs4.Stopwatch;
 import heap.ArrayHeapMinPQ;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,23 +29,17 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
      * their results in constant time. The timeout is given in seconds.
      */
     public AStarSolver(AStarGraph<Vertex> input, Vertex start, Vertex end, double timeout) {
-        /*
-        Initialization
-         */
         Stopwatch sw = new Stopwatch();
         Vertex current;
         List<WeightedEdge<Vertex>> neighbors;
         distTo = new HashMap<>();
         edgeTo = new HashMap<>();
-        solution = new LinkedList<>();
+        solution = new ArrayList<>();
         pq = new ArrayHeapMinPQ<>();
-
         solutionWeight = 0;
         distTo.put(start, 0.0);
         numStatesExplored = 0;
-        /*
-         * Begin searching
-         * */
+
         pq.add(start, input.estimatedDistanceToGoal(start, end));
         while (pq.size() > 0) {
             if (sw.elapsedTime() > timeout) {
@@ -52,7 +47,6 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
                 timeSpent = sw.elapsedTime();
                 return;
             }
-
             numStatesExplored++;
             current = pq.removeSmallest();
             if (current.equals(end) && sw.elapsedTime() < timeout) {
@@ -60,14 +54,16 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
                 timeSpent = sw.elapsedTime();
                 solutionWeight = distTo.get(end);
                 /*
-                Add vertex to Solution in reverse order
+                Output solution in reverse order
                  */
                 Vertex last = end;
                 solution.add(last);
                 while (last != start) {
-                    solution.add(0, edgeTo.get(last));
+                    solution.add(edgeTo.get(last));
                     last = edgeTo.get(last);
                 }
+                Collections.reverse(solution);
+                //solution.add(0, start);
                 return;
             }
 
