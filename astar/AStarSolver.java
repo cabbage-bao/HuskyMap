@@ -3,7 +3,7 @@ package astar;
 //import edu.princeton.cs.algs4.In;
 
 import edu.princeton.cs.algs4.Stopwatch;
-//import heap.ArrayHeapMinPQ;
+import heap.ArrayHeapMinPQ;
 import heap.ExtrinsicMinPQ;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
         distTo = new HashMap<>();
         edgeTo = new HashMap<>();
         solution = new ArrayList<>();
-        pq = new TreeMapMinPQ<>();
+        pq = new ArrayHeapMinPQ<>();            //made change here
         solutionWeight = 0;
         distTo.put(start, 0.0);
         numStatesExplored = 0;
