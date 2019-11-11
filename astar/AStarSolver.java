@@ -3,7 +3,7 @@ package astar;
 //import edu.princeton.cs.algs4.In;
 
 import edu.princeton.cs.algs4.Stopwatch;
-import heap.ArrayHeapMinPQ;
+//import heap.ArrayHeapMinPQ;
 import heap.ExtrinsicMinPQ;
 
 import java.util.ArrayList;
