@@ -121,6 +121,13 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         return this.size;
     }
 
+    public double getPriority(T item) {
+        PriorityNode node = cache.get(item);
+        if (node == null) {
+            throw new NoSuchElementException();
+        }
+        return node.getPriority();
+    }
     /**
      * *****************************************************************************************
      * *****************************************************************************************

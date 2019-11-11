@@ -1,5 +1,4 @@
 package astar;
-
 import java.util.List;
 
 /**
