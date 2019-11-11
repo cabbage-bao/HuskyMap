@@ -4,6 +4,7 @@ package astar;
 
 import edu.princeton.cs.algs4.Stopwatch;
 import heap.ArrayHeapMinPQ;
+import heap.ExtrinsicMinPQ;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +20,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
     private SolverOutcome outcome;
     private int numStatesExplored;
 
-    private ArrayHeapMinPQ<Vertex> pq;
+    private ExtrinsicMinPQ<Vertex> pq;
     private HashMap<Vertex, Double> distTo;
     private HashMap<Vertex, Vertex> edgeTo;
     private List<Vertex> solution;
@@ -35,7 +36,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
         distTo = new HashMap<>();
         edgeTo = new HashMap<>();
         solution = new ArrayList<>();
-        pq = new ArrayHeapMinPQ<>();
+        pq = new TreeMapMinPQ<>();
         solutionWeight = 0;
         distTo.put(start, 0.0);
         numStatesExplored = 0;
@@ -57,9 +58,8 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
                 Output solution in reverse order
                  */
                 Vertex last = end;
-                solution.add(last);
-                while (last != start) {
-                    solution.add(edgeTo.get(last));
+                while (last != null) {
+                    solution.add(last);
                     last = edgeTo.get(last);
                 }
                 Collections.reverse(solution);
