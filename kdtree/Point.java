@@ -6,10 +6,21 @@ public class Point {
 
     private double x;
     private double y;
+    private long key;
 
     public Point(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Point(long key, double x, double y) {
+        this.x = x;
+        this.y = y;
+        this.key = key;
+    }
+
+    public long getKey() {
+        return this.key;
     }
 
     /**

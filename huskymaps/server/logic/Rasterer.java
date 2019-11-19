@@ -5,9 +5,17 @@ import huskymaps.params.RasterResult;
 
 import java.util.Objects;
 
+import static huskymaps.utils.Constants.ROOT_ULLAT;
+import static huskymaps.utils.Constants.ROOT_ULLON;
+import static huskymaps.utils.Constants.LAT_PER_TILE;
+import static huskymaps.utils.Constants.LON_PER_TILE;
+import static huskymaps.utils.Constants.ROOT_LAT_DIFF;
+import static huskymaps.utils.Constants.ROOT_LON_DIFF;
+import static huskymaps.utils.Constants.NUM_X_TILES_AT_DEPTH;
+import static huskymaps.utils.Constants.NUM_Y_TILES_AT_DEPTH;
+import static huskymaps.utils.Constants.MIN_ZOOM_LEVEL;
 import static huskymaps.utils.Constants.MIN_X_TILE_AT_DEPTH;
 import static huskymaps.utils.Constants.MIN_Y_TILE_AT_DEPTH;
-import static huskymaps.utils.Constants.MIN_ZOOM_LEVEL;
 
 /** Application logic for the RasterAPIHandler. */
 public class Rasterer {
@@ -31,9 +39,53 @@ public class Rasterer {
      * @return RasterResult
      */
     public static RasterResult rasterizeMap(RasterRequest request) {
-        System.out.println("Since you haven't implemented rasterizeMap, nothing is displayed in your browser.");
-        // TODO
-        Tile[][] grid = null;
+        //System.out.println("Since you haven't implemented rasterizeMap, nothing is displayed in your browser.");
+        double diffLRx = request.lrlon - ROOT_ULLON;
+        double diffLRy = ROOT_ULLAT - request.lrlat;
+        double diffULx = request.ullon - ROOT_ULLON;
+        double diffULy = ROOT_ULLAT - request.ullat;
+        //int ulX = diffULx >= 0? (int) (diffULx / LON_PER_TILE[request.depth]) : 0;
+
+        int ulY;
+        if (diffULy >= 0) {
+            ulY = (int) (diffULy / LAT_PER_TILE[request.depth]);
+        } else {
+            ulY = 0;
+        }
+
+        int ulX;
+        if (diffULx >= 0) {
+            ulX = (int) (diffULx / LON_PER_TILE[request.depth]);
+        } else {
+            ulX = 0;
+        }
+
+        int lrY;
+        if (diffLRy > ROOT_LAT_DIFF) {
+            lrY = NUM_Y_TILES_AT_DEPTH[request.depth];
+        } else {
+            lrY = (int) (diffLRy / LAT_PER_TILE[request.depth]);
+        }
+
+        int lrX;
+        if (diffLRx > ROOT_LON_DIFF) {
+            lrX = NUM_X_TILES_AT_DEPTH[request.depth];
+        } else {
+            lrX = (int) (diffLRx / LON_PER_TILE[request.depth]);
+        }
+
+        Tile[][] grid;
+        if (diffLRy <= 0 || diffLRx <= 0 || diffULy >= ROOT_LAT_DIFF || diffULx >= ROOT_LON_DIFF) {
+            grid = new Tile[1][1];
+            grid[0][0] = new Tile(request.depth, 1, 0);
+        }
+
+        grid = new Tile[lrY - ulY + 1][lrX - ulX + 1];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                grid[i][j] = new Tile(request.depth, ulX + j, ulY + i);
+            }
+        }
         return new RasterResult(grid);
     }
 

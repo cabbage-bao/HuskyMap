@@ -6,7 +6,7 @@ public class Term implements Comparable<Term> {
 
     private String str;
     private long weight;
-
+    //private long key;
     /**
      * Initializes a term with the given query string and weight.
      * @throws IllegalArgumentException if query is null or weight is negative

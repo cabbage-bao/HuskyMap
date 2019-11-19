@@ -17,8 +17,8 @@ import static org.junit.Assert.assertEquals;
 
 /** Test of the rastering part of the assignment.*/
 public class TestRasterer {
-    private static final String REQUEST_FORMAT = BASE_DIR_PATH + "tests/rasterer/request%d.json",
-                                RESULT_FORMAT = BASE_DIR_PATH + "tests/rasterer/result%d.json";
+    private static final String REQUEST_FORMAT = BASE_DIR_PATH + "tests/rasterer/request%d.json";
+    private static final String RESULT_FORMAT = BASE_DIR_PATH + "tests/rasterer/result%d.json";
     private static final int NUM_TESTS = 10;
 
     private final Gson gson = new GsonBuilder()

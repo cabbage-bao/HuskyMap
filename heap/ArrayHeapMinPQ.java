@@ -111,7 +111,6 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
             swim(node.getIndex());
         }
     }
-
     /**
      * Returns the number of items in the PQ.
      * Runs in O(log N) time.

@@ -4,10 +4,10 @@ import java.util.List;
 public class KDTreePointSet implements PointSet {
 
     private KDNode kdRoot;
-
-    private double bestX;
-    private double bestY;
+    //private double bestX;
+    //private double bestY;
     private double minDistance;
+    private Point bestPoint;
     /**
      * Instantiates a new KDTree with the given points.
      * @param points a non-null, non-empty list of points to include
@@ -32,7 +32,7 @@ public class KDTreePointSet implements PointSet {
     public Point nearest(double x, double y) {
         minDistance = Double.MAX_VALUE;
         recursion(kdRoot, x, y, 1);
-        return new Point(bestX, bestY);
+        return bestPoint;
     }
 
     private void recursion(KDNode root, double x, double y, int layer) {
@@ -43,8 +43,9 @@ public class KDTreePointSet implements PointSet {
         double temp = root.point.distanceSquaredTo(x, y);
         if (temp < minDistance) {
             minDistance = temp;
-            this.bestX = root.point.x();
-            this.bestY = root.point.y();
+            //this.bestX = root.point.x();
+            //this.bestY = root.point.y();
+            bestPoint = root.point;
         }
 
         if (layer % 2 == 1) {

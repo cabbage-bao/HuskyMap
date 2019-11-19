@@ -36,18 +36,14 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
         distTo = new HashMap<>();
         edgeTo = new HashMap<>();
         solution = new ArrayList<>();
-        pq = new ArrayHeapMinPQ<>();            //made change here
+        pq = new ArrayHeapMinPQ<>();
         solutionWeight = 0;
         distTo.put(start, 0.0);
         numStatesExplored = 0;
 
         pq.add(start, input.estimatedDistanceToGoal(start, end));
         while (pq.size() > 0) {
-            if (sw.elapsedTime() > timeout) {
-                outcome = SolverOutcome.TIMEOUT;
-                timeSpent = sw.elapsedTime();
-                return;
-            }
+
             numStatesExplored++;
             current = pq.removeSmallest();
             if (current.equals(end) && sw.elapsedTime() < timeout) {
@@ -63,13 +59,8 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
                     last = edgeTo.get(last);
                 }
                 Collections.reverse(solution);
-                //solution.add(0, start);
                 return;
             }
-
-            /*
-             *** Searching neighbours
-             */
             neighbors = input.neighbors(current);
             for (WeightedEdge<Vertex> e : neighbors) {
                 Vertex f = e.from();
@@ -96,7 +87,6 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
             timeSpent = sw.elapsedTime();
             return;
         }
-        //timeSpent = sw.elapsedTime();
     }
 
     @Override
