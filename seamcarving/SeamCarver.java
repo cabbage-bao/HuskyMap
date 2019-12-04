@@ -47,9 +47,9 @@ public interface SeamCarver {
     default void removeHorizontalSeam(int[] seam) {
         if (seam == null) {
             throw new NullPointerException("Input seam array cannot be null.");
-        } else if (width() == 1) {
+        } /*else if (width() == 1) {
             throw new IllegalArgumentException("Image width is 1.");
-        } else if (seam.length != width()) {
+        } */ else if (seam.length != width()) {
             throw new IllegalArgumentException("Seam length does not match image width.");
         }
 
